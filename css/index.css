@@ -1,0 +1,33 @@
+.parallax-slider{
+  background: rgba(70, 72, 82, 0.3)
+}
+
+.parallax { 
+    /* The image used */   
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/fondo.jpg');  
+    /* Full height */
+    height: 100%; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#cycler{position:relative;}
+#cycler img{position:absolute;z-index:1}
+#cycler img.active{z-index:3}
+
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}	
