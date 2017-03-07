@@ -1,0 +1,85 @@
+body{
+	background-color: #000;
+}
+
+a{
+	color: #FFF;
+}
+
+a:hover{
+	color: #FFF;
+	text-decoration: none;
+}
+
+.main{
+	padding: 0px;
+	margin :0px;
+}
+
+li>input{
+	margin-top: 15px;
+	margin-right: 5px;
+	padding: 2px;
+}
+
+#cycler{position:relative;}
+#cycler img{position:absolute;z-index:1}
+#cycler img.active{z-index:3}
+
+.fondoPrincipal{
+	background: transparent;
+	height: 606px;
+	padding: 0px;
+	border-radius: 10px;
+	box-shadow: 0 0 99px #ddd;
+	background: #fff;
+}
+
+.img{
+	width: 100%;
+	height: 100%;
+}
+
+#slogan{
+	position:absolute;
+	z-index: 4;
+	color: #FFF;
+	margin-top: 225px;
+	font-size: 3em;
+}
+
+#registrar{
+	position:absolute;
+	z-index: 4;
+	color: #FFF;
+	margin-top: 100px;
+}
+
+.hola{
+	background-color: rgba(0, 0, 0, 0.3);
+	padding: 10px;
+	border-radius: 40px 40px 40px 40px;
+}
+
+#slogan #slogan-text{
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 5px 20px 10px 20px;
+}
+
+#slogan #slogan-btn{
+	margin-top: 50px;
+}
+
+#footer{
+	height: 4em;
+	background-color: #000;
+	color: #FFF;
+}
+
+.footer-text{
+	font-size: 1.2em;
+}
+
+#icon{
+	font-size: 1.5em;
+}

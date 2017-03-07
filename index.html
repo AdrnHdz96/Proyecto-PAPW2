@@ -2,22 +2,15 @@
 <html>
 <head>
 	<meta charset="UTF-8"/>
-	<title>Proyecto PAPW</title>
+	<title>CookBook</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
-	
-
-	<script type="text/javascript" src="vendors/jQuery.js"></script>
-	<script type="text/javascript" src="vendors/bootstrap.min.js"></script>
-	<script type="text/javascript" src="vendors/circle-progress.min.js"></script>
-
-	<script type="text/javascript" src="js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style-icomoon.css">
 </head>
 <body>
 
-	<div  class="container-fluid parallax " style="padding:0px;">
-
+	<div class="container-fluid main">
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -28,17 +21,17 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">The CookBook</a>
+					<a class="navbar-brand" href="#">CookBook</a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">					
 						<li>
-							<input type="text" placeholder="Usuario" maxlength="50" style="margin-top: 15px; margin-right: 5px;">
+							<input type="text" placeholder="Usuario" maxlength="50">
 						</li>
 						<li>
-							<input type="password" maxlength="25" placeholder="Contraseña" style="margin-top: 15px; margin-right: 5px;">
+							<input type="password" maxlength="25" placeholder="Contraseña">
 						</li>
 						<li>
 							<button class="btn btn-primary" style="margin-top: 10px; margin-right: 5px;">Entrar</button>
@@ -49,55 +42,36 @@
 			</div>
 		</nav>
 
-		<div id="cycler" class="col-xs-12 fondoPrincipal" style="background:transparent; height:500px; padding: 0px; border-radius: 10px; box-shadow: 0 0 99px #ddd; background: #fff;">
-			<img id="img1" class="active" style=" width: 100%; height: 100%;" class="img-responsive" src=""/>
-			<img id="img2" style=" width: 100%; height: 100%;" class="img-responsive" src=""/>
-			<img id="img3" style=" width: 100%; height: 100%;" class="img-responsive" src=""/>
+		<div id="cycler" class="col-xs-12 fondoPrincipal">
+			<img id="img1" class="img active img-responsive" src=""/>
+			<img id="img2" class="img img-responsive" src=""/>
+			<img id="img3" class="img img-responsive" src=""/>
 		</div>
 
-		<div class="col-xs-12" style=" background: rgba(29, 47, 24, 0.8); height:250px;">
-			<div class="col-xs-12" style="text-align: center; margin-top:81px;"> 
-				<h1 style="font-size: 1.5em; color:white;" class="btn btn-primary">REGÍSTRATE</h1>
-			</div>
-		</div>
-
-		<div id="1S" class=" col-xs-12" style="background:white; padding-bottom: 100px; padding-left: 50px; padding-right: 50px;">
-
-			<div class="col-xs-12" style="text-align:center; padding-top: 100px;">
-				<h1 style="font-size: 4.5em; color:black;">¿QUIENES SOMOS?</h1>
-			</div>
-
-			<div class="row row-centered">
-				<div class="col-xs-5 col-centered" style="margin-top:30px;">
-					<p style="font-size: 1.2em; color:black; text-align:center;">Descubre una nueva forma de cocinar todos los días, toda la vida</p>
-				</div>
-			</div>			
-		</div>
-
-		<div id="1S" class=" col-xs-12" style="background:#000000;">
-			<div class="col-xs-4" style="text-align:center;">
-				<h1 style="font-size: 2.5em; color:white;">Redes Sociales</h1>
-				<img src="img/fbLogo.png" width="35px;" />
-				<img src="img/twtLogo.png" width="35px;" />
-				<img src="img/tbLogo.png" width="35px;" />
-
-			</div>
-			<div class="col-xs-4" style="text-align:center;">
-				<h1 style="font-size: 2.5em; color:white;">Empresa</h1>
-				<h2 style="font-size: 1.2em; color:white;">TheCookBook 2017</h2>
-			</div>
-			<div class="col-xs-4" style="text-align:center;">
-				<h1 style="font-size: 2.5em; color:white;">Todos los derechos reservados</h1>
-				<h2 style="font-size: 1.2em; color:white;">Monterrey, N.L. 19/10/13</h2>
+		<div class="col-xs-12" id="slogan">
+			<div id="slogan-text" class="col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-1 col-md-5">Descubre una nueva forma de cocinar todos los días, toda la vida...</div>
+			<div id="slogan-btn" class="col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-2 col-md-4"> 
+				<h1 style="font-size: 0.5em;" class="btn btn-primary"><a href="registro.html">REGÍSTRATE</a></h1>
 			</div>
 		</div>
 
+		<div id="footer" class="col-xs-12 text-center">
+			<div class="col-xs-offset-4 col-xs-4">
+				<h2 class="footer-text">TheCookBook<sup>&#169;</sup> 2017</h2>
+			</div>
+			<div class="col-xs-4">
+				<h2 id="icon">
+					<span class="icon-facebook2"></span>
+					<span class="icon-twitter"></span>
+					<span class="icon-tumblr2"></span>
+				</h2>
+			</div>
+		</div>
+	</div>
 
-
-		
-
-	</div>		
-
-
+	<script type="text/javascript" src="vendors/jQuery.js"></script>
+	<script type="text/javascript" src="vendors/bootstrap.min.js"></script>
+	<script type="text/javascript" src="vendors/circle-progress.min.js"></script>
+	<script type="text/javascript" src="js/cycler.js"></script>
 </body>
 </html>
