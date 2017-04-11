@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+
+Route::get('/', 'indexController@index');
+Route::get('/registro', 'indexController@registro');
+
+
+Route::get('login', function () {
 });
