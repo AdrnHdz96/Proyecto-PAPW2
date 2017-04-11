@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('principal')
 
 @section('content')
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -45,5 +45,4 @@
 				<h1 style="font-size: 0.5em;" class="btn btn-primary"><a href="registro.html">REGÍSTRATE</a></h1>
 			</div>
 		</div>
-
 @stop
