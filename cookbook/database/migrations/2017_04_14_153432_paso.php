@@ -17,7 +17,7 @@ class Paso extends Migration
             $table->increments('idPaso');
             $table->integer('idReceta')->unsigned();
             $table->string('titulo',50)->nullable();
-            $table->strig('descripcion');
+            $table->string('descripcion');
             $table->timestamps();
 
             $table->foreign('idReceta')->references('idReceta')->on('receta');
