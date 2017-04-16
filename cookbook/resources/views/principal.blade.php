@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/style-icomoon.css">
+	<link rel="stylesheet" type="text/css" href="css/style-iconmoon.css">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>

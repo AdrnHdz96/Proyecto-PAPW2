@@ -15,6 +15,11 @@ class indexController extends Controller
     	return view('index');
     }
 
+    /**
+	* Muestra la ventana registro
+	*
+	* @return Response
+	*/
     public function registro(){
     	return view('registro');
     }

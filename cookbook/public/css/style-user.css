@@ -1,0 +1,49 @@
+body{
+    background-color: #eb7423;
+}
+
+a{
+    color: #ddd;
+}
+
+a:hover{
+    color: #000;
+    text-decoration: none;
+}
+
+.main{
+    margin-top: 80px;
+}
+
+.profile{
+    width: 60px;
+}
+
+.noticia{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 7px;
+    color: white;
+    margin-top: 10px;
+}
+
+.nombre{
+    font-size: 20px;
+}
+
+.fecha{
+    font-size: 20px;
+}
+
+.imagen{
+    width: 100%;
+    height: 350px;
+}
+
+.like{
+    font-size: 30px;
+}
+
+.liked{
+    font-size: 30px;
+    color: red;
+}
