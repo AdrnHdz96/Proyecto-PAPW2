@@ -16,8 +16,6 @@ class Usuario extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->increments('idUsuario');
             $table->string('nombre',150);
-            $table->string('apellidoPaterno',100);
-            $table->string('apellidoMaterno',100);
             $table->string('email',150)->unique();
             $table->string('contrasena');
             $table->date('fechaNacimiento');

@@ -23,4 +23,27 @@ class indexController extends Controller
     public function registro(){
     	return view('registro');
     }
+
+    public function login($usuario, $contrasena){
+    	$user = DB::table('usuario')->where([
+    		['usuario','=',$usuario],
+    		['contrasena','=',$contrasena],
+    		])->get();
+
+    	return $user;
+    }
+
+    public function registro($nombre,$email,$contrasena,$fechaNacimiento,$genero,$urlFoto){
+
+    	 DB::table('usuario')->insert([
+            'nombre' => $nombre,
+            'email' => $email,
+            'contrasena' => $contrasena,
+            'fechaNacimiento' => $fechaNacimiento,
+            'genero' => $genero,
+            'urlFoto' => $urlFoto,
+            'created_at' => Carbon\Carbon::now()
+        ]);
+
+    }
 }
