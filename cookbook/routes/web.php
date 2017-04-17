@@ -21,6 +21,9 @@ Route::get('/registro', 'indexController@registro');
 Route::group(['prefix' => 'user'], function(){
 	Route::get('/newsFeed', 'userController@newsFeed');
 	Route::get('/profile', 'userController@profile');
+	Route::get('/cookbook', 'userController@cookbook');
+	Route::get('/follow', 'userController@follow');
+	Route::get('/follower', 'userController@follower');
 });
 
 

@@ -35,10 +35,10 @@
 							<ul class="dropdown-menu">
 								<li><a href="/user/profile">Ver Perfil</a></li>
 								<li class="divider"></li>
-	                			<li><a href="">Mi Recetario</a></li>
+	                			<li><a href="/user/cookbook">Mi Recetario</a></li>
 	        	    	    	<li class="divider"></li>
-	    	    	        	<li><a href="">Seguidores</a></li>
-		    	            	<li><a href="">Siguiendo</a></li>
+	    	    	        	<li><a href="/user/follower">Seguidores</a></li>
+		    	            	<li><a href="/user/follow">Siguiendo</a></li>
 			                	<li class="divider"></li>
 		                		<li><a href="/">Cerrar Sesi&oacute;n</a></li>
 							</ul>

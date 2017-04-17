@@ -7,7 +7,7 @@
                 @for ($i=0; $i<5; $i++)
                     @component('components.notice')
                         @slot('name')
-                        @nombre
+                            @nombre
                         @endslot
                     @endcomponent
                 @endfor
@@ -18,7 +18,13 @@
                     @for ($i=0; $i<5; $i++)
                         @component('components.user')
                             @slot('name')
-                            @nombre
+                                @nombre
+                            @endslot
+                            @slot('typeButton')
+                                <button class="btn btn-primary" style="width:90px">Seguir</button>
+                            @endslot
+                            @slot('removeButton')
+                                <button class="btn glyphicon glyphicon-remove"></button>
                             @endslot
                         @endcomponent
                     @endfor

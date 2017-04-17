@@ -13,6 +13,10 @@
     <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat ornare lectus nec feugiat. Integer facilisis lacus nunc, et sodales urna eleifend at. Quisque nec finibus magna. Proin et arcu nec tellus fringilla venenatis eget non dui. Suspendisse pharetra tristique sem at maximus. Sed augue ante, rhoncus eget mi eu, scelerisque vehicula nulla.<br><a href="">ver m&aacute;s...</a></p>
     <a href=""><img src="../img/fondo1.jpg" class="imagen"></a>
     <div class="like text-right">
-        <span class="glyphicon glyphicon-heart-empty"></span>
+        @if(isset($like))
+            {{$like}}
+        @else
+            <span class="glyphicon glyphicon-heart-empty"></span>
+        @endif
     </div>
 </div>

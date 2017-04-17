@@ -23,4 +23,31 @@ class userController extends Controller
     public function profile(){
     	return view('profile');
     }
+
+    /**
+	* Muestra la ventana de recetario
+	*
+	* @return Response
+	*/
+    public function cookbook(){
+    	return view('cookbook');
+    }
+
+    /**
+	* Muestra la ventana de siguiendo
+	*
+	* @return Response
+	*/
+    public function follow(){
+    	return view('follow');
+    }
+
+    /**
+	* Muestra la ventana de seguidores
+	*
+	* @return Response
+	*/
+    public function follower(){
+    	return view('follower');
+    }
 }
