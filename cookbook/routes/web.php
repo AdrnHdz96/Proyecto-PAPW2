@@ -20,6 +20,7 @@ Route::get('/registro', 'indexController@registro');
 
 Route::group(['prefix' => 'user'], function(){
 	Route::get('/newsFeed', 'userController@newsFeed');
+	Route::get('/profile', 'userController@profile');
 });
 
 

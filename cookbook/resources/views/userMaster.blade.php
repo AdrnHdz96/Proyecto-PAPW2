@@ -33,15 +33,14 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="">Ver Perfil</a></li>
+								<li><a href="/user/profile">Ver Perfil</a></li>
 								<li class="divider"></li>
 	                			<li><a href="">Mi Recetario</a></li>
-	            	    		<li><a href="">Mis Recetas</a></li>
 	        	    	    	<li class="divider"></li>
 	    	    	        	<li><a href="">Seguidores</a></li>
 		    	            	<li><a href="">Siguiendo</a></li>
 			                	<li class="divider"></li>
-		                		<li><a href="">Cerrar Sesi&oacute;n</a></li>
+		                		<li><a href="/">Cerrar Sesi&oacute;n</a></li>
 							</ul>
 						</span>
 					</form>

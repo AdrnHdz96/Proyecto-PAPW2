@@ -15,6 +15,7 @@ a:hover{
     margin-top: 80px;
 }
 
+/*NewsFeed Inicio*/
 .profile{
     width: 60px;
 }
@@ -27,7 +28,8 @@ a:hover{
 }
 
 .nombre{
-    font-size: 20px;
+    font-size: 24px;
+    margin-top: 10px;
 }
 
 .fecha{
@@ -47,3 +49,37 @@ a:hover{
     font-size: 30px;
     color: red;
 }
+
+.tags span{
+    background-color: #1b4550;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.users{
+    position: fixed;
+}
+
+.user{
+    margin-top: 10px;
+    height: 100px;
+    border-bottom: 1px solid black;
+}
+/*NewsFeed Fin*/
+/*Profile Inicio*/
+.profileHeader{
+    background-color: #808080;
+    padding: 7px;
+    border-radius: 7px 7px 0px 0px;
+}
+
+.profileStory{
+    background: #fff;
+    padding: 7px;
+    border-radius: 0px 0px 7px 7px;   
+}
+
+.photo{
+    width: 80px;
+}
+/*Profile Fin*/
