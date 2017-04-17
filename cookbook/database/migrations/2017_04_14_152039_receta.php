@@ -15,13 +15,11 @@ class Receta extends Migration
     {
         Schema::create('receta', function (Blueprint $table) {
             $table->increments('idReceta');
-            $table->integer('idGenero')->unsigned();
             $table->integer('idUsuario')->unsigned();
             $table->string('nombre',150);
             $table->string('urlFoto');
             $table->timestamps();
 
-            $table->foreign('idGenero')->references('idGenero')->on('genero');
             $table->foreign('idUsuario')->references('idUsuario')->on('usuario');
         });
     }
