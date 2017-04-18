@@ -33,7 +33,7 @@ class indexController extends Controller
     	return $user;
     }
 
-    public function registro($nombre,$email,$contrasena,$fechaNacimiento,$genero,$urlFoto){
+    public function agregarRegistro($nombre,$email,$contrasena,$fechaNacimiento,$genero,$urlFoto){
 
     	 DB::table('usuario')->insert([
             'nombre' => $nombre,
