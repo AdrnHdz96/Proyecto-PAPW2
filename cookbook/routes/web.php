@@ -24,6 +24,7 @@ Route::group(['prefix' => 'user'], function(){
 	Route::get('/cookbook', 'userController@cookbook');
 	Route::get('/follow', 'userController@follow');
 	Route::get('/follower', 'userController@follower');
+	Route::get('/recipe', 'userController@recipe');
 });
 
 

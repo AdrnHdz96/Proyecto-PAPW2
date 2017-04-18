@@ -50,4 +50,13 @@ class userController extends Controller
     public function follower(){
     	return view('follower');
     }
+
+    /**
+	* Muestra la ventana de receta
+	*
+	* @return Response
+	*/
+    public function recipe(){
+    	return view('recipe');
+    }
 }
