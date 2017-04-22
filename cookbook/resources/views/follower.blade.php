@@ -20,5 +20,21 @@
 	@endcomponent
 	</div>
 	@endfor
+	<div class="col-md-4">
+	@component('components.user')
+		@slot('name')
+			@Juan
+		@endslot
+		@if($i%2)
+			@slot('typeButton')
+				<button class="btn btn-default" style="width:90px">Seguir</button>
+			@endslot
+		@else
+			@slot('typeButton')
+				<button class="btn btn-primary" style="width:90px">Siguiendo</button>
+			@endslot
+		@endif
+	@endcomponent
+	</div>
 	</div>
 @stop

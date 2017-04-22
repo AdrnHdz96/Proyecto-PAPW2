@@ -2,6 +2,10 @@
     @if(isset($name))
         <img src="../img/1.png" class="profile">
         <span class="nombre"><a href="/user/profile">{{$name}}</a></span>
+    @else
+    <div class="text-right">
+        <a href="/user/newRecipe" class="btn btn-default glyphicon glyphicon-pencil"></a>
+    </div>
     @endif
     <h1><a href="/user/recipe">Nombre Receta</a><span class="fecha"> &#8226; 10/10/2000</span></h1>
     <div class="tags">

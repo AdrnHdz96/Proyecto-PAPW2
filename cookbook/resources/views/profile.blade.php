@@ -12,12 +12,12 @@
 			<div class="col-md-2">
 				<!--<button class="btn btn-default" style="width:90px">Seguir</button>
 				<button class="btn btn-primary" style="width:90px">Siguiendo</button>-->
-				<button class="glyphicon glyphicon-plus-sign btn btn-default"></button>
+				<a class="glyphicon glyphicon-plus-sign btn btn-default" href="/user/newRecipe"></a>
 				@component('components.modal')
 					@slot('modalTitle')
 						Editar perfil
 					@endslot
-					@slot('modalContent')
+				@slot('modalContent')
 						<form method="POST" action="">
 						<div class="form-group row">
 					<label for="contra" class="col-md-offset-1 col-md-2 col-form-label">Antigua contrase&ntilde;a</label>

@@ -59,4 +59,22 @@ class userController extends Controller
     public function recipe(){
     	return view('recipe');
     }
+
+    /**
+	* Muestra la ventana de nueva receta
+	*
+	* @return Response
+	*/
+    public function newRecipe(){
+    	return view('newRecipe');
+    }
+
+    /**
+	* Muestra la ventana de busqueda
+	*
+	* @return Response
+	*/
+    public function search(){
+    	return view('search');
+    }
 }

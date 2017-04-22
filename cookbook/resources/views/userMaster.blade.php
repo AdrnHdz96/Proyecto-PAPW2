@@ -24,7 +24,8 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Buscar...">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+								<!--<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>-->
+								<a href="/user/search" class="btn btn-default glyphicon glyphicon-search"></a>
 							</div>
 						</div>
 
@@ -61,5 +62,6 @@
 
 	<script type="text/javascript" src="../vendors/jQuery.js"></script>
 	<script type="text/javascript" src="../vendors/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/ingredientes.js"></script>
 </body>
 </html>

@@ -88,3 +88,7 @@ a:hover{
     margin-top: 11px;
 }
 /*comment Fin*/
+
+hr{
+    border: 1px solid #b0b0b0;
+}
