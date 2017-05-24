@@ -3,6 +3,8 @@
 namespace CookBook\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Session;
 
 class indexController extends Controller
 {
@@ -11,39 +13,41 @@ class indexController extends Controller
 	*
 	* @return Response
 	*/
-    public function index(){
-    	return view('index');
+  public function index(){
+    if(Session::has('usuario')){
+      return redirect('user/newsFeed');
+    }else{
+      return view('index');
     }
+  }
 
     /**
 	* Muestra la ventana registro
 	*
 	* @return Response
 	*/
-    public function registro(){
-    	return view('registro');
+  public function registro(){
+    if(Session::has('usuario')){
+      return redirect('user/newsFeed');
+    }else{
+      return view('registro');
     }
+  }
 
-    public function login($usuario, $contrasena){
-    	$user = DB::table('usuario')->where([
-    		['usuario','=',$usuario],
-    		['contrasena','=',$contrasena],
-    		])->get();
+  public function login(){
 
-    	return $user;
+   $user = DB::table('usuario')->where([
+    ['email','=', $_POST["correo"]],
+    ['contrasena','=',$_POST["contra"]],
+    ])->get();
+
+     if(count($user) == 1){
+      Session::put('usuario',$user[0]);
+      return redirect("user/newsFeed");
+    }else{
+      return view("index");
     }
+  }
 
-    public function agregarRegistro($nombre,$email,$contrasena,$fechaNacimiento,$genero,$urlFoto){
 
-    	 DB::table('usuario')->insert([
-            'nombre' => $nombre,
-            'email' => $email,
-            'contrasena' => $contrasena,
-            'fechaNacimiento' => $fechaNacimiento,
-            'genero' => $genero,
-            'urlFoto' => $urlFoto,
-            'created_at' => Carbon\Carbon::now()
-        ]);
-
-    }
 }

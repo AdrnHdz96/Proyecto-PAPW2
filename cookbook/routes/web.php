@@ -17,6 +17,7 @@
 
 Route::get('/', 'indexController@index');
 Route::get('/registro', 'indexController@registro');
+Route::get('/cerrarSesion', 'userController@cerrarSesion');
 
 Route::group(['prefix' => 'user'], function(){
 	Route::get('/newsFeed', 'userController@newsFeed');
@@ -27,7 +28,11 @@ Route::group(['prefix' => 'user'], function(){
 	Route::get('/recipe', 'userController@recipe');
 	Route::get('/newRecipe', 'userController@newRecipe');
 	Route::get('/search', 'userController@search');
+	Route::post('/editarPerfil', 'userController@editarPerfil');
 });
+
+Route::post('/registro', 'registroController@agregarUser');
+Route::post('/login', 'indexController@login');
 
 
 Route::get('login', function () {

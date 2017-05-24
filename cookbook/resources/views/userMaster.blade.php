@@ -41,7 +41,7 @@
 	    	    	        	<li><a href="/user/follower">Seguidores</a></li>
 		    	            	<li><a href="/user/follow">Siguiendo</a></li>
 			                	<li class="divider"></li>
-		                		<li><a href="/">Cerrar Sesi&oacute;n</a></li>
+		                		<li><a href="/cerrarSesion">Cerrar Sesi&oacute;n</a></li>
 							</ul>
 						</span>
 					</form>
