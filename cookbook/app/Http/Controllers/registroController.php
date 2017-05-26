@@ -43,6 +43,7 @@ class registroController extends Controller
 					['contrasena','=',$_POST["contra"]],
 					])->get();
 
+					
 				    Session::put('usuario', $user[0]);
     				return redirect("user/newsFeed");
 				

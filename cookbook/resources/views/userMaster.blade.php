@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8"/>
 	<title>CookBook</title>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/style-user.css">
-	<link rel="stylesheet" type="text/css" href="../css/style-iconmoon.css">
-	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/style-user.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/style-iconmoon.css')}}">
+	<link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon">
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<img class="navbar-brand" style="width: 75px; height: 75px;" src="../img/1.png">
+				<img class="navbar-brand" style="width: 75px; height: 75px;" src="{{asset('/img/1.png')}}">
 				<a class="navbar-brand" style="padding-top: 35px;" href="/user/newsFeed">CookBook</a>
 			</div>
 
@@ -60,8 +61,8 @@
 		</div>	
 	</div>
 
-	<script type="text/javascript" src="../vendors/jQuery.js"></script>
-	<script type="text/javascript" src="../vendors/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/ingredientes.js"></script>
+	<script type="text/javascript" src="{{asset('/vendors/jQuery.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/vendors/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/js/ingredientes.js')}}"></script>
 </body>
 </html>

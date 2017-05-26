@@ -65,17 +65,18 @@
 							<input type="file" name="foto" class="form-control-file" id="foto" aria-describedby="fileHelp">
 						</div>
 					</div>
-				</form>
+				
 				@endslot
 				@slot('modalButton')
 				<button type="submit" class="btn btn-primary glyphicon glyphicon-floppy-disk"></button>
 				@endslot
 				@endcomponent
+				</form>
 			</div>
 		</div>
 		<div class="col-md-8 col-md-offset-2 profileStory">
-			@for ($i=0; $i<2; $i++)
-			@component('components.notice')
+			@for ($i=0; $i< count($recetas); $i++)
+			@component('components.notice',['receta' => $recetas[$i],'generos' => $generos])
 			@endcomponent
 			@endfor
 		</div>

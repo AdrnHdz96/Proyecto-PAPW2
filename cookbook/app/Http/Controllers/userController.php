@@ -4,6 +4,8 @@ namespace CookBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use DB;
+use CookBook\usuarioModelo;
 
 class userController extends Controller
 {
@@ -14,7 +16,11 @@ class userController extends Controller
 	*/
 	public function newsFeed(){
 		if(Session::has('usuario')){
-			return view('newsFeed');
+			$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->orderBy('created_at', 'desc')->get();
+			
+			
+			$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+			return view('newsFeed',compact('recetas','generos'));
 		}else{
 			return redirect("/");
 		}
@@ -33,7 +39,12 @@ class userController extends Controller
 	*/
 	public function profile(){
 		if(Session::has('usuario')){
-			return view('profile');
+			$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->where('idUsuario',Session::get('usuario')->idUsuario)->get();
+
+			
+			$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+
+			return view('profile',compact('recetas','generos'));
 		}else{
 			return redirect("/");
 		}
@@ -96,13 +107,7 @@ class userController extends Controller
 	*
 	* @return Response
 	*/
-	public function newRecipe(){
-		if(Session::has('usuario')){
-			return view('newRecipe');
-		}else{
-			return redirect("/");
-		}
-	}
+	
 
     /**
 	* Muestra la ventana de busqueda
@@ -119,49 +124,84 @@ class userController extends Controller
 
 
 	public function editarPerfil(){
+		if($_POST["contraVieja"] != "" && $_POST["contraVieja"] != null){
+
+			$usuarioContra = usuarioModelo::where([ ['contrasena', $_POST["contraVieja"]],['idUsuario',Session::get('usuario')->idUsuario]])->get();
+
+			if( count($usuarioContra) > 0){
+				$cantidadActualizada = 0;
+				$mensaje = "";
+
+				//--INICIO DE LOS CAMPOS A ACTUALIZAR
+
+				if($_POST["contraNueva"] != "" && $_POST["contraNueva"] != null){
+
+					if(Session::get('usuario')->contrasena != $_POST["contraNueva"]){
+						DB::table('usuario')->where('idUsuario',Session::get('usuario')->idUsuario)->update(['contrasena' => $_POST["contraNueva"]]);
+						$usuario = Session::get('usuario');
+						$usuario->contrasena = $_POST["contraNueva"];
+						Session::put('usuario',$usuario);
+						$cantidadActualizada++;
+						$mensaje = $mensaje."contraseña";
+					}else{
+						echo '<script type="text/javascript">alert("La nueva contraseña debe ser diferente a la contraseña actual");</script>';
+						return view("profile");
+					}
+				}
+
+				if($_POST["nac"] != "" && $_POST["nac"] != null){
+					DB::table('usuario')->where('idUsuario',Session::get('usuario')->idUsuario)->update(['fechaNacimiento' => $_POST["nac"]]);
+					$usuario = Session::get('usuario');
+					$usuario->fechaNacimiento = $_POST["nac"];
+					Session::put('usuario',$usuario);
+					$cantidadActualizada++;
+					$mensaje = $mensaje. $cantidadActualizada == 1 ? "fecha de nacimiento" : ", fecha de nacimiento" ;
+				}
+
+				if($_POST["genero"] !=  Session::get('usuario')->genero){
+					DB::table('usuario')->where('idUsuario',Session::get('usuario')->idUsuario)->update(['genero' => $_POST["genero"]]);
+					$usuario = Session::get('usuario');
+					$usuario->genero = $_POST["genero"];
+					Session::put('usuario',$usuario);
+					$cantidadActualizada++;
+					$mensaje = $mensaje. $cantidadActualizada == 1 ? "genero" : ", genero" ;
+				}
+
+				if ($_FILES["foto"]["error"] == UPLOAD_ERR_OK) {
+
+					$tmp_name = $_FILES["foto"]["tmp_name"];
+
+					$name = str_replace("/usuarios/perfil/", "", Session::get('usuario')->urlFoto);
+
+					move_uploaded_file($tmp_name, public_path()."/usuarios/perfil/$name");
+
+					$cantidadActualizada++;
+					$mensaje = $mensaje. $cantidadActualizada == 1 ? "foto" : ", foto" ;
+				}
+
+				//---VERIFICAR QUE MENSAJES VA A ENVIAR
+
+				if($cantidadActualizada == 0){
+					return view("profile");
+				}else{
+					if($cantidadActualizada == 1){
+						$mensaje = "El campo ".$mensaje." ha sido actualizado correctamente";
+					}else{
+						$mensaje = "Los campos ".$mensaje." han sido actualizados correctamente";					
+					}
+					echo '<script type="text/javascript">alert("'.$mensaje.'");</script>';
+					return view("profile");
+				}
 
 
-		$usuarioContra = "";
-		if($_POST["contraVieja"] != "" && $_POST["contraVieja"] != null && $_POST["contraVieja"] != undefined){
-			$usuarioContra = usuarioModelo::where('contrasena', $_POST["contraVieja"])->get();
-		}
-
-
-		$update = DB::table('usuario')->where('idUsuario',Session::get('usuario')->idUsuario);
-
-		if($_POST["nombre"] != "" && $_POST["nombre"] != null && $_POST["nombre"] != undefined){
-			$update->update('nombre' => "@".$_POST["nombre"]);
-		}
-
-		if($_POST["contraNueva"] != "" && $_POST["contraNueva"] != null && $_POST["contraNueva"] != undefined && count($usuarioContra) > 0){
-			$update->update('contrasena' => $_POST["contraNueva"]);
-		}
-
-		if($_POST["nac"] != "" && $_POST["nac"] != null && $_POST["nac"] != undefined){
-			$update->update('fechaNacimiento' => $_POST["nac"]);
-		}
-
-		if($_POST["genero"] != "" && $_POST["genero"] != null && $_POST["genero"] != undefined){
-			$update->update('genero' => $_POST["genero"]);
-		}
-
-		if($_POST["foto"] != "" && $_POST["foto"] != null && $_POST["foto"] != undefined){
-			if ($_FILES["foto"]["error"] == UPLOAD_ERR_OK) {
-
-				$tmp_name = $_FILES["foto"]["tmp_name"];
-				$path = $_FILES['foto']['name'];
-				$ext = pathinfo($path, PATHINFO_EXTENSION);
-
-				move_uploaded_file($tmp_name, Session::get('usuario')->urlFoto.".".$ext);
-				$update->update('urlFoto' => "/usuarios/perfil/$name");
+				//SI HUBO ALGUN ERROR CON LA CONTRASEÑA
+			}else{
+				echo '<script type="text/javascript">alert("La contraseña actual ingresada es inválida, favor de ingresarla de nuevo");</script>';
+				return view("profile");
 			}
 		}else{
-			echo '<script type="text/javascript">alert("Error al subir la imagen, intentelo de nuevo");</script>';
-			return redirect('user/profile');    
-		}	
-
-		$update->update('updated_at' => Carbon::now());
-
-
+			echo '<script type="text/javascript">alert("Favor de ingresar la contraseña actual");</script>';
+			return view("profile");
+		}		
 	}
 }

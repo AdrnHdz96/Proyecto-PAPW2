@@ -42,9 +42,11 @@ class indexController extends Controller
     ])->get();
 
      if(count($user) == 1){
+      
       Session::put('usuario',$user[0]);
       return redirect("user/newsFeed");
     }else{
+      echo '<script type="text/javascript">alert("Los campos usuario o contraseña son incorrectos");</script>';
       return view("index");
     }
   }

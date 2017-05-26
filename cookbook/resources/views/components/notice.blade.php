@@ -1,26 +1,28 @@
 <div class="col-md-12 noticia">
-    @if(isset($name))
+    @if(isset($receta))
+     @if(Session::get('usuario')->idUsuario != $receta->idUsuario)
         <img src="../img/1.png" class="profile">
-        <span class="nombre"><a href="/user/profile">{{$name}}</a></span>
+        <span class="nombre"><a href="/user/profile">{{$receta->idUsuario}}</a></span>
     @else
     <div class="text-right">
-        <a href="/user/newRecipe" class="btn btn-default glyphicon glyphicon-pencil"></a>
+        <a href="/user/editarReceta/{{$receta->idReceta}}" class="btn btn-default glyphicon glyphicon-pencil"></a>
     </div>
     @endif
-    <h1><a href="/user/recipe">Nombre Receta</a><span class="fecha"> &#8226; 10/10/2000</span></h1>
+    <h1><a href="/user/recipe/{{$receta->idReceta}}">{{$receta->nombre}}</a><span class="fecha"> &#8226; {{ substr($receta->created_at, 0, -9) }}</span></h1>
     <div class="tags">
+        @for($i=0;$i < count($generos);$i++)
+        @if($generos[$i]->idReceta == $receta->idReceta)
         <!--Sera dinamico-->
-        <span>#Desayuno</span>
-        <span>#Salado</span>
-        <span>#Picoso</span>
+        <span>#{{$generos[$i]->nombre}}</span>
+        @endif
+        @endfor
     </div>
-    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat ornare lectus nec feugiat. Integer facilisis lacus nunc, et sodales urna eleifend at. Quisque nec finibus magna. Proin et arcu nec tellus fringilla venenatis eget non dui. Suspendisse pharetra tristique sem at maximus. Sed augue ante, rhoncus eget mi eu, scelerisque vehicula nulla.<br><a href="/user/recipe">ver m&aacute;s...</a></p>
-    <a href="/user/recipe"><img src="../img/fondo1.jpg" class="imagen"></a>
+    <p class="text-justify"><br><a href="/user/recipe">ver m&aacute;s...</a></p>
+    <a href="/user/recipe/{{$receta->idReceta}}"><img src="{{$receta->urlFoto}}"  class="imagen"></a>
     <div class="like text-right">
-        @if(isset($like))
-            {{$like}}
-        @else
-            <span class="glyphicon glyphicon-heart-empty"></span>
+        @if(Session::get('usuario')->idUsuario != $receta->idUsuario)
+         <span class="glyphicon glyphicon-heart-empty"></span>
         @endif
     </div>
+    @endif
 </div>
