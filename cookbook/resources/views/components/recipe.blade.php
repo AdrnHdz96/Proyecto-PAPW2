@@ -1,46 +1,57 @@
 <div class="col-md-12 noticia">
-    @if(isset($name))
-        <img src="../img/1.png" class="profile">
-        <span class="nombre"><a href="/user/profile">{{$name}}</a></span>
+
+    @if(isset($receta))
+     @if(Session::get('usuario')->idUsuario != $usuario[0]->idUsuario)
+        <img src="{{$usuario[0]->urlFoto}}" class="profile">
+        <span class="nombre"><a href="/user/profile/{{$usuario[0]->idUsuario}}">{{$usuario[0]->nombre}}</a></span>
+    @else
     @endif
-    <h1>Nombre Receta<span class="fecha"> &#8226; 10/10/2000</span></h1>
+    @endif
+
+    <h2>{{$receta->nombre}}</h2>
+    <h1> <span class="fecha"> &#8226; {{substr($receta->created_at, 0, -9)}}</span></h1>
     <div class="tags">
+         @for($i=0;$i < count($generosReceta);$i++)
+        @if($generosReceta[$i]->idReceta == $receta->idReceta)
         <!--Sera dinamico-->
-        <span>#Desayuno</span>
-        <span>#Salado</span>
-        <span>#Picoso</span>
+        <span>#{{$generosReceta[$i]->nombre}}</span>
+        @endif
+        @endfor
     </div>
     <h2>Ingredientes</h2>
     <!--Ingredientes-->
+    @for($i=0;$i<count($ingredientes);$i++)
     @component('components.ingredient')
         @slot('ingredient')
-            1/2 Ajo
+            {{$ingredientes[$i]->nombre}}
         @endSlot
     @endcomponent
+    @endfor
     <!--Pasos-->
+    @for($i=0;$i<count($pasos);$i++)
     @component('components.step')
         @slot('numberStep')
-            1
+            {{$i+1}}
         @endslot
         @slot('contentStep')
-            Corte el ajo en trozos pequeños
+            {{$pasos[$i]->descripcion}}
         @endslot
     @endcomponent
-    @component('components.step')
-        @slot('numberStep')
-            2
-        @endslot
-        @slot('contentStep')
-            Comase el ajo
-        @endslot
-    @endcomponent
+    @endfor
 
-    <img src="../img/fondo1.jpg" class="imagen">
+    <img src="{{$receta->urlFoto}}" class="imagen">
+
+
     <div class="like text-right">
-        @if(isset($like))
-            {{$like}}
-        @else
-            <span class="glyphicon glyphicon-heart-empty"></span>
-        @endif
+
+     @if(Session::get('usuario')->idUsuario != $usuario[0]->idUsuario)  
+     @if(isset($like))
+     <a href="/user/dislike/{{$receta->idReceta}}" class="glyphicon glyphicon-heart"></a>
+
+     @else
+     <a href="/user/like/{{$receta->idReceta}}" class="glyphicon glyphicon-heart-empty"></a>
+     @endif
+    @else
+    @endif
     </div>
 </div>

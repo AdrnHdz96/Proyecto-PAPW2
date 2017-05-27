@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 use DB;
 use CookBook\usuarioModelo;
+use Carbon\Carbon;
 
 class userController extends Controller
 {
@@ -14,13 +15,61 @@ class userController extends Controller
 	*
 	* @return Response
 	*/
+
+	public function agregarComentario(){
+		$idReceta= $_POST['idReceta'];
+		$comentario = $_POST['comentario'];
+		$idUsuario = Session::get('usuario')->idUsuario;
+
+		DB::table('comentario')->insert(
+			['idUsuario' => $idUsuario, 
+			'idReceta' => $idReceta,
+			'comentario' => $comentario,
+			'created_at' =>  Carbon::now()]);
+
+		return redirect("/user/recipe/".$idReceta);
+	}
+
+	public function buscarPost(){
+		$fecha1 = $_POST['from'];
+		$fecha2 = $_POST['to'];
+
+		$recetas = DB::table('receta')->join('usuario','receta.idUsuario', '=', 'usuario.idUsuario')->select('receta.idReceta', 'receta.idUsuario','receta.nombre','receta.urlFoto','receta.created_at','usuario.nombre as nombreUsuario','usuario.urlFoto as fotoUsuario')->whereBetween('receta.created_at',   [$fecha1, $fecha2])->orderBy('created_at', 'desc')->get();
+
+		$usuarios = DB::table('usuario')->select('*')->where('idUsuario','<>', Session::get('usuario')->idUsuario)->get();
+
+		$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+		$likes;
+			foreach ($recetas as $receta) {
+				$laik = DB::table('likes')->select('*')->where('idUsuario', Session::get('usuario')->idUsuario)->where('idReceta', $receta->idReceta)->get();
+
+				if(count($laik)!=0){
+					$aux = json_decode($laik);
+					$likes[] = $aux[0]->idReceta;
+				}
+			}
+		return view('search',compact('recetas','generos','usuarios','likes'));
+	}
+
 	public function newsFeed(){
 		if(Session::has('usuario')){
-			$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->orderBy('created_at', 'desc')->get();
+			$recetas = DB::table('receta')->join('usuario','receta.idUsuario', '=', 'usuario.idUsuario')->select('receta.idReceta', 'receta.idUsuario','receta.nombre','receta.urlFoto','receta.created_at','usuario.nombre as nombreUsuario','usuario.urlFoto as fotoUsuario')->orderBy('created_at', 'desc')->get();
 			
-			
+			$usuarios = DB::table('usuario')->select('*')->where('idUsuario','<>', Session::get('usuario')->idUsuario)->get();
+
+
 			$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
-			return view('newsFeed',compact('recetas','generos'));
+			
+			$likes;
+			foreach ($recetas as $receta) {
+				$laik = DB::table('likes')->select('*')->where('idUsuario', Session::get('usuario')->idUsuario)->where('idReceta', $receta->idReceta)->get();
+
+				if(count($laik)!=0){
+					$aux = json_decode($laik);
+					$likes[] = $aux[0]->idReceta;
+				}
+			}
+			return view('newsFeed',compact('recetas','generos','usuarios','likes'));
 		}else{
 			return redirect("/");
 		}
@@ -37,14 +86,47 @@ class userController extends Controller
 	*
 	* @return Response
 	*/
-	public function profile(){
+	public function profile($idUsuario = ""){
 		if(Session::has('usuario')){
-			$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->where('idUsuario',Session::get('usuario')->idUsuario)->get();
 
-			
-			$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+			if($idUsuario == "" || $idUsuario == Session::get('usuario')->idUsuario){
 
-			return view('profile',compact('recetas','generos'));
+				$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->where('idUsuario',Session::get('usuario')->idUsuario)->get();
+
+				$usuario = DB::table('usuario')->select('idUsuario','urlFoto','nombre')->where('idUsuario',Session::get('usuario')->idUsuario)->get();
+
+
+
+				$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+
+				return view('profile',compact('recetas','generos','usuario'));
+
+			}else{
+				/*$recetas = DB::table('receta')->select('idReceta', 'idUsuario','nombre','urlFoto','created_at')->where('idUsuario',$idUsuario)->get();*/
+				$recetas = DB::table('receta')->join('usuario','receta.idUsuario', '=', 'usuario.idUsuario')->select('receta.idReceta', 'receta.idUsuario','receta.nombre','receta.urlFoto','receta.created_at','usuario.nombre as nombreUsuario','usuario.urlFoto as fotoUsuario')->where('receta.idUsuario',$idUsuario)->orderBy('receta.created_at', 'desc')->get();
+
+				$usuario = DB::table('usuario')->select('idUsuario','urlFoto','nombre')->where('idUsuario',$idUsuario)->get();
+
+				if(count($usuario) != 0){
+
+					$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+					$busquedaUsuario = true;
+
+					$likes;
+					foreach ($recetas as $receta) {
+						$laik = DB::table('likes')->select('idReceta')->where('idUsuario', Session::get('usuario')->idUsuario)->where('idReceta', $receta->idReceta)->get();
+						if(count($laik) != 0){
+							$aux = json_decode($laik);
+							$likes[] = $aux[0]->idReceta;
+						}
+					}
+
+					return view('profile',compact('recetas','generos','busquedaUsuario','usuario','likes'));
+				}else{
+
+					return redirect("/");
+				}
+			}
 		}else{
 			return redirect("/");
 		}
@@ -94,9 +176,35 @@ class userController extends Controller
 	*
 	* @return Response
 	*/
-	public function recipe(){
+	public function recipe($idReceta){
 		if(Session::has('usuario')){
-			return view('recipe');
+
+
+			$receta = DB::table('receta')->select('idReceta','nombre','urlFoto','idUsuario','created_at')->where('idReceta',$idReceta)->get();
+
+			$generosReceta = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+
+			$pasos = DB::table('paso')->where('idReceta',$idReceta)->select('descripcion')->get();
+			$ingredientes = DB::table('ingrediente')->where('idReceta',$idReceta)->select('nombre')->get();
+
+			$receta =  json_decode($receta);
+			$receta = $receta[0];
+
+			$usuario = DB::table('usuario')->select('*')->where('idUsuario',$receta->idUsuario)->get();
+
+			$usuariosSeguir = DB::table('usuario')->select('*')->where('idUsuario','<>', Session::get('usuario')->idUsuario)->get();
+
+			$comentarios = DB::table('comentario')->join('usuario','comentario.idUsuario','=','usuario.idUsuario')->select('comentario.*','usuario.nombre as nombreUsuario','usuario.urlFoto as fotoUsuario')->where('idReceta', $idReceta)->orderBy('created_at',"desc")->get();
+
+			$like = DB::table('likes')->select('*')->where('idUsuario', Session::get('usuario')->idUsuario)->where('idReceta', $idReceta)->get();
+			if(count($like)!=0){
+				$like = json_decode($like);
+				$like = $like[0]->idReceta;
+				return view("recipe",compact('generosReceta','receta','pasos','ingredientes','usuario','usuariosSeguir','comentarios','like'));
+			}else{
+				return view("recipe",compact('generosReceta','receta','pasos','ingredientes','usuario','usuariosSeguir','comentarios'));
+			}
+			
 		}else{
 			return redirect("/");
 		}
@@ -145,7 +253,7 @@ class userController extends Controller
 						$mensaje = $mensaje."contraseña";
 					}else{
 						echo '<script type="text/javascript">alert("La nueva contraseña debe ser diferente a la contraseña actual");</script>';
-						return view("profile");
+						return redirect("/user/profile");
 					}
 				}
 
@@ -190,18 +298,21 @@ class userController extends Controller
 						$mensaje = "Los campos ".$mensaje." han sido actualizados correctamente";					
 					}
 					echo '<script type="text/javascript">alert("'.$mensaje.'");</script>';
-					return view("profile");
+					return redirect("/user/profile");
+					
 				}
 
 
 				//SI HUBO ALGUN ERROR CON LA CONTRASEÑA
 			}else{
 				echo '<script type="text/javascript">alert("La contraseña actual ingresada es inválida, favor de ingresarla de nuevo");</script>';
-				return view("profile");
+				return redirect("/user/profile");
+				
 			}
 		}else{
 			echo '<script type="text/javascript">alert("Favor de ingresar la contraseña actual");</script>';
-			return view("profile");
+			return redirect("/user/profile");
+			
 		}		
 	}
 }

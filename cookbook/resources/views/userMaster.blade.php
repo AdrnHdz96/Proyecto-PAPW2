@@ -23,7 +23,7 @@
 				<li>
 					<form class="navbar-form">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Buscar...">
+							<!--<input type="text" class="form-control" placeholder="Buscar...">-->
 							<div class="input-group-btn">
 								<!--<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>-->
 								<a href="/user/search" class="btn btn-default glyphicon glyphicon-search"></a>
@@ -38,9 +38,6 @@
 								<li><a href="/user/profile">Ver Perfil</a></li>
 								<li class="divider"></li>
 	                			<li><a href="/user/cookbook">Mi Recetario</a></li>
-	        	    	    	<li class="divider"></li>
-	    	    	        	<li><a href="/user/follower">Seguidores</a></li>
-		    	            	<li><a href="/user/follow">Siguiendo</a></li>
 			                	<li class="divider"></li>
 		                		<li><a href="/cerrarSesion">Cerrar Sesi&oacute;n</a></li>
 							</ul>

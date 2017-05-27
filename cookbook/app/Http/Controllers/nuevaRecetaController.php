@@ -24,7 +24,7 @@ class nuevaRecetaController extends Controller
 		if(Session::has('usuario')){
 			$generos = DB::table('genero')->select('idGenero', 'nombre')->get();
 
-			$receta = DB::table('receta')->select('idReceta','nombre')->where('idReceta',$idReceta)->get();
+			$receta = DB::table('receta')->select('idReceta','nombre','urlFoto')->where('idReceta',$idReceta)->get();
 			$generosReceta = DB::table('receta_genero')->where('idReceta',$idReceta)->select('idGenero')->get();
 			$pasos = DB::table('paso')->where('idReceta',$idReceta)->select('descripcion')->get();
 			$ingredientes = DB::table('ingrediente')->where('idReceta',$idReceta)->select('nombre')->get();
@@ -155,5 +155,41 @@ class nuevaRecetaController extends Controller
 			return redirect("/user/profile");
 		}
 
+	}
+
+	public function like($idReceta){
+		DB::table('likes')->insert([
+			'idReceta' => $idReceta,
+			'idUsuario' => Session::get('usuario')->idUsuario,
+			'created_at' => Carbon::now()
+			]);
+		return redirect("/user/recipe/".$idReceta);
+	}
+
+	public function dislike($idReceta){
+		DB::table('likes')->where('idReceta', $idReceta)->where('idUsuario', Session::get('usuario')->idUsuario)->delete();
+		return redirect("/user/recipe/".$idReceta);
+	}
+
+	public function misLikes(){
+		if(Session::has('usuario')){
+			$recetas = DB::table('receta')->join('usuario','receta.idUsuario', '=', 'usuario.idUsuario')->join('likes','receta.idReceta', '=', 'likes.idReceta')->select('receta.*','usuario.nombre as nombreUsuario','usuario.urlFoto as fotoUsuario')->where('likes.idUsuario', Session::get('usuario')->idUsuario)->orderBy('created_at', 'desc')->get();
+			$usuarios = DB::table('usuario')->select('*')->where('idUsuario','<>', Session::get('usuario')->idUsuario)->get();
+
+			$generos = DB::table('receta_genero')->join('genero', 'receta_genero.idGenero', '=', 'genero.idGenero')->select('receta_genero.idReceta', 'genero.nombre')->get();
+			
+			$likes;
+			foreach ($recetas as $receta) {
+				$laik = DB::table('likes')->select('*')->where('idUsuario', Session::get('usuario')->idUsuario)->where('idReceta', $receta->idReceta)->get();
+
+				if(count($laik)!=0){
+					$aux = json_decode($laik);
+					$likes[] = $aux[0]->idReceta;
+				}
+			}
+			return view('cookbook',compact('recetas','generos','likes','usuarios'));
+		}else{
+			return redirect("/");
+		}
 	}
 }

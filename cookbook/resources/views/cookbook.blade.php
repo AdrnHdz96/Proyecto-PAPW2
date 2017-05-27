@@ -1,16 +1,15 @@
 @extends('userMaster')
 
 @section('content')
-	<div class="col-md-8 col-md-offset-2">
-		@for ($i=0; $i<2; $i++)
-			@component('components.notice')
-				@slot('name')
-					@nombre
-				@endslot
-				@slot('like')
-					<span class="glyphicon glyphicon-heart"></span>
-				@endslot
-			@endcomponent
-		@endfor
-	</div>
+<div class="col-md-8 col-md-offset-2">
+	@for ($i=0; $i< count($recetas); $i++)
+	@if(isset($likes))
+	@component('components.notice',['receta' => $recetas[$i],'generos' => $generos,'usuarios'=>$usuarios, 'likes' =>$likes])
+	@endcomponent
+	@else
+	@component('components.notice',['receta' => $recetas[$i],'generos' => $generos,'usuarios'=>$usuarios])
+	@endcomponent
+	@endif
+	@endfor
+</div>
 @stop

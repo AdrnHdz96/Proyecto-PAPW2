@@ -57,13 +57,18 @@ a:hover{
 }
 
 .users{
-    position: fixed;
+    /*position: fixed;
+    overflow-y: scroll;*/
 }
 
 .user{
     margin-top: 10px;
     height: 100px;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    background-color: #909090;
+    padding-top: 7px;
+    border-radius: 7px;
 }
 /*NewsFeed Fin*/
 /*Profile Inicio*/
@@ -87,8 +92,44 @@ a:hover{
 .comment{
     margin-top: 11px;
 }
+.colorComment{
+    background-color: #757575;
+    color:white;
+    padding: 5px;
+    border-radius: 10px 17px 12px 10px;
+    margin-bottom: 3px;
+    font-size: 1.2em; 
+}
+.colorComment p{
+    margin-top: 7px;
+}
 /*comment Fin*/
 
 hr{
     border: 1px solid #b0b0b0;
+}
+
+@media(max-width: 1024px){
+    .user{
+    margin-top: 14px;
+    height: 100px;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    background-color: #909090;
+    padding-top: 7px;
+    border-radius: 7px;
+}
+.noticia{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 7px;
+    color: white;
+    margin-top: 22px;
+}
+.receta{
+    margin-top: 20px;
+}
+.users{
+    position: fixed;
+    margin-top: 20px;
+}
 }

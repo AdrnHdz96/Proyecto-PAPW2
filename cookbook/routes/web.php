@@ -21,17 +21,21 @@ Route::get('/cerrarSesion', 'userController@cerrarSesion');
 
 Route::group(['prefix' => 'user'], function(){
 	Route::get('/newsFeed', 'userController@newsFeed');
-	Route::get('/profile', 'userController@profile');
-	Route::get('/cookbook', 'userController@cookbook');
+	Route::get('/profile/{idUsuario?}', 'userController@profile');
+	Route::get('/cookbook', 'nuevaRecetaController@misLikes');
 	Route::get('/follow', 'userController@follow');
 	Route::get('/follower', 'userController@follower');
-	Route::get('/recipe', 'userController@recipe');
+	Route::get('/recipe/{idReceta}', 'userController@recipe');
 	Route::get('/newRecipe', 'nuevaRecetaController@newRecipe');
 	Route::post('/nuevaReceta', 'nuevaRecetaController@agregarReceta');
 	Route::get('/editarReceta/{idReceta}', 'nuevaRecetaController@editarReceta');
 	Route::post('/editarReceta', 'nuevaRecetaController@editarRecetaBD');
 	Route::get('/search', 'userController@search');
+	Route::post('/buscarPost', 'userController@buscarPost');
 	Route::post('/editarPerfil', 'userController@editarPerfil');
+	Route::put('/agregarComentario', 'userController@agregarComentario');
+	Route::get('/like/{idReceta}', 'nuevaRecetaController@like');
+	Route::get('/dislike/{idReceta}', 'nuevaRecetaController@dislike');
 });
 
 Route::post('/registro', 'registroController@agregarUser');
